@@ -6,6 +6,7 @@ import os
 
 def convert_bytes(byt):
     output = str(byt, 'UTF-8')
+    print(f'convert_bytes:in:{byt}:out:{output}')
     return output
 
 def write_csv(filename,row):
@@ -13,6 +14,7 @@ def write_csv(filename,row):
     writer = csv.writer(f)
     writer.writerow([row])
     f.close()
+    print(f'write_csv:in:{filename}|{row}:out:null')
 
 def read_csv_csv(filename):
     with open(f'{filename}', mode ='r')as file:
@@ -20,32 +22,37 @@ def read_csv_csv(filename):
         for lines in csvFile:
             if lines != []:
                 return lines
+    print(f'read_csv_csv:in:{filename}:out:{lines}')
 
 if __name__ == '__main__':
     csv_file_name = 'store_adr'
     # Get Current IP
     current_ip = convert_bytes(ifconfig_get())
+    print(f'current_ip:out:{current_ip}')
 
     if os.path.exists(csv_file_name):
         # Get last recorded IP
         last_ip = read_csv_csv(csv_file_name)[0]
+        print(f'last_ip:out:{last_ip}')
 
         # If change detected
         if current_ip != last_ip:
             # Set email message
             message = f"""Subject:Raspberry Pi External Change Detected\n
             Detail:{last_ip} -> {current_ip}"""
-
+            print(f'message:out:{message}')
             # Write new ip to csv file store
             write_csv(csv_file_name,current_ip)
             
             # read in json config for smtp details
             with open('config.json') as f:
                 data = json.load(f)
+                print(f'data:out:{data}')
             # Convert json dict into vars
             gmail_user, gmail_pwd, to, msg_from = data['mail_user'], data['mail_pw'], data['mail_to'], data['mail_from']
             # Send email detailing change
             send_email(gmail_user,gmail_pwd,msg_from,to,message)
+            print(f'send_email:in:{gmail_user},{gmail_pwd},{msg_from},{to},{message}')
     else:
         # If no file, then write a new one
         write_csv(csv_file_name,current_ip)
