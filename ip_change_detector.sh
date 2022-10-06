@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PATH=${dirname "$0"}
+PATH=$(dirname "$0")
 
 cd $PATH &&
 python -m venv venv &&
