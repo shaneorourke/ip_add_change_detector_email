@@ -1,10 +1,5 @@
-#!/bin/bash
-
-PATH=$(dirname "$0")
-
-cd $PATH &&
-python -m venv env &&
+python3 -m venv env &&
 source env/bin/activate &&
 pip install -r requirements.txt &&
-python main.py &&
+python3 main.py &&
 deactivate
