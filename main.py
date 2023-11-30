@@ -3,6 +3,7 @@ from ifconfig import ifconfig_get
 import csv
 import json
 import os
+import requests
 
 def convert_bytes(byt):
     output = str(byt, 'UTF-8')
@@ -24,10 +25,17 @@ def read_csv_csv(filename):
                 return lines
     print(f'read_csv_csv:in:{filename}:out:{lines}')
 
+def get_ip_address():
+    url = 'https://api.ipify.org'
+    response = requests.get(url)
+    ip_address = response.text
+    return ip_address
+
 if __name__ == '__main__':
     csv_file_name = 'store_adr'
     # Get Current IP
-    current_ip = convert_bytes(ifconfig_get())
+    #current_ip = convert_bytes(ifconfig_get())
+    current_ip = get_ip_address()
     print(f'current_ip:out:{current_ip}')
 
     if os.path.exists(csv_file_name):
