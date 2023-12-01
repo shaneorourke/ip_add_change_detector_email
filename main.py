@@ -11,14 +11,14 @@ def convert_bytes(byt):
     return output
 
 def write_csv(filename,row):
-    f = open(f'/home/shanepi/git/ip_add_change_detector_email/{filename}', 'w')
+    f = open(f'{filename}', 'w')
     writer = csv.writer(f)
     writer.writerow([row])
     f.close()
     print(f'write_csv:in:{filename}|{row}:out:null')
 
 def read_csv_csv(filename):
-    with open(f'/home/shanepi/git/ip_add_change_detector_email/{filename}', mode ='r')as file:
+    with open(f'{filename}', mode ='r')as file:
         csvFile = csv.reader(file)
         for lines in csvFile:
             if lines != []:
@@ -32,7 +32,7 @@ def get_ip_address():
     return ip_address
 
 if __name__ == '__main__':
-    csv_file_name = 'store_adr'
+    csv_file_name = '/home/shanepi/git/ip_add_change_detector_email/store_adr'
     # Get Current IP
     #current_ip = convert_bytes(ifconfig_get())
     current_ip = get_ip_address()
@@ -53,7 +53,7 @@ if __name__ == '__main__':
             write_csv(csv_file_name,current_ip)
             
             # read in json config for smtp details
-            with open('config.json') as f:
+            with open('/home/shanepi/git/ip_add_change_detector_email/config.json') as f:
                 data = json.load(f)
                 print(f'data:out:{data}')
             # Convert json dict into vars
