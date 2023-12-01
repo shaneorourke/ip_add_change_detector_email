@@ -11,14 +11,14 @@ def convert_bytes(byt):
     return output
 
 def write_csv(filename,row):
-    f = open(f'{filename}', 'w')
+    f = open(f'/home/shanepi/git/ip_add_change_detector_email/{filename}', 'w')
     writer = csv.writer(f)
     writer.writerow([row])
     f.close()
     print(f'write_csv:in:{filename}|{row}:out:null')
 
 def read_csv_csv(filename):
-    with open(f'{filename}', mode ='r')as file:
+    with open(f'/home/shanepi/git/ip_add_change_detector_email/{filename}', mode ='r')as file:
         csvFile = csv.reader(file)
         for lines in csvFile:
             if lines != []:
