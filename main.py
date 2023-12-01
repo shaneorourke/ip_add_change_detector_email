@@ -61,6 +61,6 @@ if __name__ == '__main__':
             # Send email detailing change
             send_email(gmail_user,gmail_pwd,msg_from,to,message)
             print(f'send_email:in:{gmail_user},{gmail_pwd},{msg_from},{to},{message}')
-        else:
-            # If no file, then write a new one
-            write_csv(csv_file_name,current_ip)
+    else:
+        # If no file, then write a new one
+        write_csv(csv_file_name,current_ip)
